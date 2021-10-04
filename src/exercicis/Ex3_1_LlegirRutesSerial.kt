@@ -5,7 +5,9 @@ import java.io.DataInputStream
 
 fun main() {
     val f = DataInputStream(FileInputStream("Rutes.dat"))
-
+    /*DataInputStream, available():
+    devuelve los bytes restantes o disponibles en el fichero
+     */
     while (f.available() > 0) {
         System.out.println("Ruta: " + f.readUTF())
         System.out.println("Desnivell: " + f.readInt())
