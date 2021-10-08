@@ -35,15 +35,22 @@ class Ruta (var nom: String,
         return llistaDePunts.size
     }
 
+    /**
+     * Deuvelve un String con la informacion correspondiente
+     * al objeto ruta.
+     */
     fun mostrarRuta():String {
+        //String de las caracteristicas principales de la ruta
         val ruta = "Ruta: $nom\nDesnivell: $desnivell\nDesnivell acumulat: $desnivellAcumulat\n" +
                 "Te ${size()} punts\n"
+        //String para cada uno de los puntos de la ruta
         var punts = ""
+        //Bucle para recoger cada punto de la ruta
         for (i in 0..llistaDePunts.size-1){
             punts += "Punt ${i+1}: ${llistaDePunts.get(i).nom} (${getPuntLatitud(i)}, ${getPuntLongitud(i)})\n"
         }
+        //Concatena ambas strings
         return ruta.plus(punts)
-        // Aquest és el mètode que heu d'implementar vosaltres
     }
 }
 

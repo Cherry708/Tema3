@@ -1,7 +1,19 @@
 package exercicis
-
 import java.io.*
 
+/**
+ * Debe tomar un fichero mediante inputStream decorado con
+ * DataInputStream para recorrer este y asignar su contenido
+ * a variables.
+ *
+ * Una vez tenemos el contenido del fichero original en variables
+ * declaramos un objeto ruta y le suministramos estas variables
+ * al constructor.
+ *
+ * Por ultimo escribimos el objeto con un outputStream
+ * decorado con ObjectOutput, que nos permitira escribir
+ * un objeto gracias a que Ruta implementa serializable.
+ */
 
 fun main() {
     val fileIn = DataInputStream(FileInputStream("Rutes.dat"))
