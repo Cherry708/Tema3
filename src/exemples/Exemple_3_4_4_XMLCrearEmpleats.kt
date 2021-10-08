@@ -3,6 +3,7 @@ import java.io.ObjectInputStream
 import java.io.FileInputStream
 import javax.xml.parsers.DocumentBuilderFactory
 import java.io.EOFException
+import javax.xml.transform.OutputKeys
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
@@ -43,6 +44,8 @@ fun main(args: Array<String>) {
         f.close();
     }
     val trans = TransformerFactory.newInstance().newTransformer()
+    trans.setOutputProperty(OutputKeys.INDENT, "yes")
+    trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2")
 
     trans.transform(DOMSource(doc), StreamResult("Empleats.xml"))
 }
