@@ -12,7 +12,7 @@ import javax.xml.transform.stream.StreamResult
 fun main(){
     val fileInput = ObjectInputStream(FileInputStream ("Rutes.obj"))
 
-    val doc = DocumentBuilderFactory.newInstance ().newDocumentBuilder().newDocument()
+    val doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument()
     val arrel = doc.createElement ("rutes")
     doc.appendChild(arrel)
 
@@ -27,11 +27,11 @@ fun main(){
             elementRuta.appendChild(nom)
 
             val desnivell = doc.createElement ("desnivell")
-            desnivell.appendChild(doc.createTextNode(ruta.desnivell.toString()  )) // forma llarga: afegim un fill que és un node de text
+            desnivell.appendChild(doc.createTextNode(ruta.desnivell.toString()))
             elementRuta.appendChild(desnivell)
 
             val desnivellAcumulat = doc.createElement("desnivellAcumulat")
-            desnivellAcumulat.appendChild(doc.createTextNode(ruta.desnivellAcumulat.toString())) // forma curta: amb setTextContent() li posem contingut
+            desnivellAcumulat.appendChild(doc.createTextNode(ruta.desnivellAcumulat.toString()))
             elementRuta.appendChild(desnivellAcumulat)
 
             val elementPunts = doc.createElement("punts")
@@ -53,8 +53,8 @@ fun main(){
                 elementPunt.appendChild(longitud)
 
                 elementPunts.appendChild(elementPunt)
-            }
 
+            }
             arrel.appendChild(elementRuta)
         }
 
