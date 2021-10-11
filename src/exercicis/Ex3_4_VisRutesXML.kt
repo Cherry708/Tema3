@@ -52,18 +52,17 @@ class Finestra : JFrame() {
                         val elementRuta = llistaElementsRuta.item(i) as Element
                         val llistaElementsPunts = elementRuta.getElementsByTagName("punts")
 
-                        val elementPunt = llistaElementsPunts.item(0) as Element
-                        val llistaElementsPunt = elementPunt.getElementsByTagName("punt")
+                        val elementPunts = llistaElementsPunts.item(0) as Element
+                        val llistaElementsPunt = elementPunts.getElementsByTagName("punt")
 
                         for (x in 0 until llistaElementsPunt.length){
-                            val elementNom = llistaElementsPunt.item(x) as Element
-                            val llistaElementsNoms = elementNom.getElementsByTagName("nom")
+                            val elementPunt = llistaElementsPunt.item(x) as Element
 
-                            val elementLatitud = llistaElementsPunt.item(x) as Element
-                            val llistaElementsLatitud = elementLatitud.getElementsByTagName("latitud")
+                            val llistaElementsNoms = elementPunt.getElementsByTagName("nom")
 
-                            val elementLongitud = llistaElementsPunt.item(x) as Element
-                            val llistaElementsLongitud = elementLongitud.getElementsByTagName("longitud")
+                            val llistaElementsLatitud = elementPunt.getElementsByTagName("latitud")
+
+                            val llistaElementsLongitud = elementPunt.getElementsByTagName("longitud")
 
                             area.text += llistaElementsNoms.item(0).textContent
                                 .plus("(${llistaElementsLatitud.item(0).textContent}, " +
