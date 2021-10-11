@@ -23,12 +23,12 @@ class Finestra : JFrame() {
 
         val panell1 = JPanel(FlowLayout())
         val panell2 = JPanel(BorderLayout())
-        add(panell1,BorderLayout.NORTH)
-        add(panell2,BorderLayout.CENTER)
+        add(panell1, BorderLayout.NORTH)
+        add(panell2, BorderLayout.CENTER)
 
         val llistaRutes = arrayListOf<String>()
         //Por cada elemento ruta de la lista de elementos ruta
-        for (i in 0 until llistaElementsRuta.length){
+        for (i in 0 until llistaElementsRuta.length) {
             //asignamos cada elemento ruta a una variable
             val elementRuta = llistaElementsRuta.item(i) as Element
             //añadimos a la lista de nombres el nombre de esta ruta mediante la variable
@@ -40,35 +40,49 @@ class Finestra : JFrame() {
         val combo = JComboBox(llistaRutes.toArray())
         panell1.add(combo)
 
-        panell2.add(JLabel("Llista de punts de la ruta:"),BorderLayout.NORTH)
+        panell2.add(JLabel("Llista de punts de la ruta:"), BorderLayout.NORTH)
         val area = JTextArea()
         panell2.add(area)
 
-        combo.addActionListener{
-                for (i in 0 until llistaRutes.size){
-                    if (combo.selectedIndex == i){
-                        area.text = ""
+        combo.addActionListener {
+            //Recorremos cada ruta de la lista de rutas
+            for (i in 0 until llistaRutes.size) {
+                //Para el elemento seleccionado
+                if (combo.selectedIndex == i) {
+                    //Vaciamos la textArea para evitar acumulacion de concatenaciones
+                    area.text = ""
 
-                        val elementRuta = llistaElementsRuta.item(i) as Element
-                        val llistaElementsPunts = elementRuta.getElementsByTagName("punts")
+                    //asignamos una ruta a elementoRuta
+                    val elementRuta = llistaElementsRuta.item(i) as Element
+                    //asignamos a listaElemenosPuntos la lista devuelta de etiquetas punts
+                    val llistaElementsPunts = elementRuta.getElementsByTagName("punts")
 
-                        val elementPunts = llistaElementsPunts.item(0) as Element
-                        val llistaElementsPunt = elementPunts.getElementsByTagName("punt")
+                    //asigmos a elementoPunts el unico punto en la ruta item(0)
+                    val elementPunts = llistaElementsPunts.item(0) as Element
+                    //Obtenemos una lista de los puntos en ese punto
+                    val llistaElementsPunt = elementPunts.getElementsByTagName("punt")
 
-                        for (x in 0 until llistaElementsPunt.length){
-                            val elementPunt = llistaElementsPunt.item(x) as Element
+                    //Por cada elemento de la lista de punto en puntos
+                    for (x in 0 until llistaElementsPunt.length) {
+                        //obtenemos el punto x, x es la iteracion del bucle
+                        val elementPunt = llistaElementsPunt.item(x) as Element
 
-                            val llistaElementsNoms = elementPunt.getElementsByTagName("nom")
+                        //obtenemos una lista con los elementos nombre,latitud y longitud
+                        //de cada punto, su longitud sera 1, solo hay uno por cada punto
+                        val llistaElementsNoms = elementPunt.getElementsByTagName("nom")
 
-                            val llistaElementsLatitud = elementPunt.getElementsByTagName("latitud")
+                        val llistaElementsLatitud = elementPunt.getElementsByTagName("latitud")
 
-                            val llistaElementsLongitud = elementPunt.getElementsByTagName("longitud")
+                        val llistaElementsLongitud = elementPunt.getElementsByTagName("longitud")
 
-                            area.text += llistaElementsNoms.item(0).textContent
-                                .plus("(${llistaElementsLatitud.item(0).textContent}, " +
-                                        "${llistaElementsLongitud.item(0).textContent})\n")
-                        }
+                        //asignamos al texto del area el contenido de los elementos de cada punto recorrido en x
+                        area.text += llistaElementsNoms.item(0).textContent
+                            .plus(
+                                "(${llistaElementsLatitud.item(0).textContent}, " +
+                                        "${llistaElementsLongitud.item(0).textContent})\n"
+                            )
                     }
+                }
             }
             // accions quan s'ha seleccionat un element del combobox,
             // i que han de consistir en omplir el JTextArea
