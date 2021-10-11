@@ -6,10 +6,10 @@ import org.w3c.dom.Element
 fun main(args: Array<String>) {
 
     val doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse("cotxes.xml")
-    val arrel = doc.getDocumentElement()  // apuntarà a l'element arrel
+    val arrel = doc.documentElement  // apuntarà a l'element arrel
     val llista = arrel.getElementsByTagName("vehiculo")
 
-    for (i in 0 until llista.getLength()) {
+    for (i in 0 until llista.length) {
         val el = llista.item(i) as Element
         println(el.getNodeName() + " " + (i + 1))
         println("Marca: " + el.getElementsByTagName("marca").item(0).getChildNodes().item(0).getNodeValue())
