@@ -6,7 +6,7 @@ import java.io.*
 
 fun main(){
     val fileIn = ObjectInputStream(FileInputStream("Rutes.obj"))
-    val fileOut = FileWriter(File("RutesPrueba.JSON"))
+    val fileOut = FileWriter(File("Rutes.json"))
 
     /*
     Objeto, array, objeto, array, objeto, objeto
