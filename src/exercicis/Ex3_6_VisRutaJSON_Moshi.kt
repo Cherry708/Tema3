@@ -15,7 +15,9 @@ class FinestraJSON : JFrame() {
 
         val jsonFile = File("Rutes.json").readText()
         val moshi = Moshi.Builder().build()
+        //Definimos la clase del adaptador
         val adapter = moshi.adapter(Rutes::class.java)
+        //Obtenemos las rutas desde json
         val fileRutes = adapter.fromJson(jsonFile)
 
         for (ruta in fileRutes.rutes){
