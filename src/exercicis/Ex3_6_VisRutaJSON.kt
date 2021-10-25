@@ -47,16 +47,13 @@ class FinestraJSON : JFrame() {
         panell2.add(area)
 
         combo.addActionListener {
-            for (i in 0 until llistaRutes.size) {
-                //Para el elemento seleccionado
-                if (combo.selectedIndex == i) {
                     //Vaciamos la textArea para evitar acumulacion de concatenaciones
                     area.text = ""
 
                     val llistaNomPunt = ArrayList<String>()
                     val llistaLatituds = ArrayList<Double>()
                     val llistaLongituds = ArrayList<Double>()
-                    for (punt in llistaRutes.get(i).llistaDePunts){
+                    for (punt in llistaRutes.get(combo.selectedIndex).llistaDePunts){
                         llistaNomPunt.add(punt.nom)
                         llistaLatituds.add(punt.coord.latitud)
                         llistaLongituds.add(punt.coord.longitud)
@@ -67,11 +64,9 @@ class FinestraJSON : JFrame() {
                             .plus(", ${llistaLongituds.get(n)})\n")
                     }
                 }
-            }
+
             // accions quan s'ha seleccionat un element del combobox,
             // i que han de consistir en omplir el JTextArea
-
-        }
     }
 }
 
