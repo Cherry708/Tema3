@@ -9,16 +9,23 @@ import javax.xml.parsers.DocumentBuilderFactory
 
 fun main(){
 
+    /*
+    Bucle For para los vehiculos y bucles for para los elementos de cada
+    vehiculo que varian en numero, por ejemplo for de getElementsByTagName("extra"),
+    es el mismo caso para las fotos, por la longitud de la lista devuelta por getElements
+    realizamos la asignacion de un objeto.
+     */
+
     //XML
     val doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse("cotxes.xml")
     val arrel = doc.documentElement  // apuntarà a l'element arrel
-    val llista = arrel.getElementsByTagName("vehiculo")
+    val listaVehiculosXml = arrel.getElementsByTagName("vehiculo")
 
 
     val fileOut = FileWriter(File("cotxesPrueba.json"))
 
     //JSON
-    val elemento = llista.item(0) as Element
+    val elemento = listaVehiculosXml.item(0) as Element
 
 
     val arrelJson = JSONObject()
@@ -29,49 +36,49 @@ fun main(){
     val vehiculos = JSONArray()
     oferta.put("vehiculos",vehiculos)
 
-    val vehiculo = JSONObject()
+    for (i in 0 until listaVehiculosXml.length) {
+        val vehiculo = JSONObject()
 
-    vehiculo.put("marca", elemento.getElementsByTagName("marca").item(0).getChildNodes().item(0).getNodeValue())
+        vehiculo.put("marca", elemento.getElementsByTagName("marca").item(0).getChildNodes().item(0).getNodeValue())
 
-    val modelo = JSONObject()
-    modelo.put("color",elemento.getAttribute("color"))
-    modelo.put("nombe_modelo",elemento.getElementsByTagName("modelo").item(0).nodeValue)
+        val modelo = JSONObject()
+        modelo.put("color", (elemento.getElementsByTagName("modelo").item(0) as Element).getAttribute("color"))
+        modelo.put("nombe_modelo", elemento.getElementsByTagName("modelo").item(0).nodeValue)
 
-    vehiculo.put("modelo",modelo)
+        vehiculo.put("modelo", modelo)
 
-    val motor = JSONObject()
-    motor.put("combustible","gasolina")
-    motor.put("nombre_motor","duratorc 1.4")
+        val motor = JSONObject()
+        motor.put("combustible", "gasolina")
+        motor.put("nombre_motor", "duratorc 1.4")
 
-    vehiculo.put("motor",motor)
+        vehiculo.put("motor", motor)
 
-    vehiculo.put("matricula","1234AAA")
-    vehiculo.put("kilometros","12500")
-    vehiculo.put("precio_inicial","12000")
-    vehiculo.put("precio_oferta","10000")
+        vehiculo.put("matricula", "1234AAA")
+        vehiculo.put("kilometros", "12500")
+        vehiculo.put("precio_inicial", "12000")
+        vehiculo.put("precio_oferta", "10000")
 
-    val extra = JSONArray()
+        val elementsExtra = elemento.getElementsByTagName("extra")
+        val extra = JSONArray()
 
-    val pinturaExtra = JSONObject()
-    pinturaExtra.put("valor","250")
-    pinturaExtra.put("nombre_extra","pintura metalizada")
-    extra.put(pinturaExtra)
+        for (i in 0 until elementsExtra.length) {
+            val objetoExtra = JSONObject()
+            //por aqui, recuperar atributo como arriba, linea 45
+            objetoExtra.put("valor", elementsExtra.item(i))
+            objetoExtra.put("nombre_extra", elemento.getElementsByTagName("extra").item(i).nodeValue)
+            extra.put(objetoExtra)
 
-    val llantasExtra = JSONObject()
-    llantasExtra.put("valor","300")
-    llantasExtra.put("nombre_extra","llantas")
-    extra.put(llantasExtra)
+            vehiculo.put("extra", extra)
+        }
 
-    vehiculo.put("extra",extra)
+        val foto = JSONArray()
+        foto.put("11325.jpg")
+        foto.put("11326.jpg")
 
-    val foto = JSONArray()
-    foto.put("11325.jpg")
-    foto.put("11326.jpg")
+        vehiculo.put("foto", foto)
 
-    vehiculo.put("foto",foto)
-
-
-    vehiculos.put(vehiculo)
+        vehiculos.put(vehiculo)
+    }
 
     fileOut.write(arrelJson.toString(4))
     fileOut.close()
